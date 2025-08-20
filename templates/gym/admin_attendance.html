@@ -1,0 +1,63 @@
+{% extends 'gym/adminbase.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.main__cards {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 30px;
+		margin: 20px 0;
+	}
+</style>
+<main>
+ 
+	<div class="main__container">
+	   <!-- MAIN TITLE STARTS HERE -->
+
+	   <div class="main__title">
+		<img src="{% static "assets/attendance.svg" %}" alt="" />
+		<div class="main__greeting">
+		  <h1>Hello {{request.user.username}}</h1>
+		  <p>Manage Attendance Of Your Member</p>
+		</div>
+	  </div>
+
+	  <!-- MAIN TITLE ENDS HERE -->
+	  <!-- MAIN TITLE ENDS HERE -->
+
+	  <!-- MAIN CARDS STARTS HERE -->
+	  <div class="main__cards">
+		<a href="admin-take-attendance" style="text-decoration:none;"> 
+            <div class="card">
+		  <i
+			class="fa fa-plus fa-2x text-lightblue"
+			aria-hidden="true"
+		  ></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">Take Attendance</p>
+		{% comment %} <span class="font-bold text-title">578</span> {% endcomment %}
+		  </div>
+		</div></a>
+
+        <a href="admin-view-attendance" style="text-decoration:none;"> 
+		<div class="card">
+		  <i class="fa fa-eye fa-2x text-red" aria-hidden="true"></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">View Attendance</p>
+			{% comment %} <span class="font-bold text-title">2467</span> {% endcomment %}
+		  </div>
+		</div></a>
+
+        
+        
+	  </div>
+	  <!-- MAIN CARDS ENDS HERE -->
+
+
+	</div>
+   
+  </main>
+
+
+
+{% endblock content %}

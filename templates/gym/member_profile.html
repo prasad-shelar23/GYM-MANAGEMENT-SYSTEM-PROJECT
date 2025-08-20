@@ -1,0 +1,128 @@
+{% extends 'gym/memberbase.html' %}
+{% load static %}
+{% block content %}
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+		margin-top: 20px;
+	  }
+	  
+	  td, th {
+		border: 1px solid #dddddd;
+		text-align: center;
+		padding: 8px;
+	  }
+	  
+	 
+	.charts {
+		
+		 grid-template-columns: 1fr;
+		/* gap: 30px; */
+		margin-top: 30px;
+		justify-content: space-around;
+		/* align-items: center; */
+		/* justify-items: center; */
+		/* align-content: space-around; */
+	}
+
+</style>
+<main>
+	<div class="main__container">
+	 
+
+
+	  <!-- CHARTS STARTS HERE -->
+	  <div class="charts">
+		<div class="charts__left">
+		  <div class="charts__left__title">
+			<div>
+			  <h1>Your Profile</h1>
+			  
+			</div>
+			<i class="fa fa-user" aria-hidden="true"></i>
+		  </div>
+		  
+        <table style="width:100%">
+            <tr>
+                <td> Photo</td>
+                <td> <img src="{% static member.profile_pic.url %}" alt="Profile Pic" height="120px" width="100px" /></td>
+             </tr>
+                <tr>
+                    <td> Full Name</td>
+                    <td> {{member.get_name}}</td>
+                 </tr>
+
+                 
+
+                 <tr>
+                    <td> Mobile</td>
+                    <td>{{member.mobile}}</td>
+
+                 </tr>
+
+                 <tr>
+                    <td> Age</td>
+                    <td>{{member.age}}</td>
+
+                 </tr>
+
+                 
+
+                 <tr>
+                    <td> Joined Date</td>
+                    <td>{{member.joineddate}}</td>
+
+                 </tr>
+
+				 <tr>
+                    <td> Package Taken</td>
+                    <td>{{member.package}}</td>
+
+                 </tr>
+
+				 <tr>
+                    <td> Trainer Assigned</td>
+                    <td>{{member.trainer}}</td>
+
+                 </tr>
+
+				 <tr>
+                    <td> Your Trainer Experience</td>
+                    <td>{{member.trainer.experience}}</td>
+
+                 </tr>
+
+				 <tr>
+                    <td> Your Trainer Mobile</td>
+                    <td>{{member.trainer.mobile}}</td>
+
+                 </tr>
+
+				 <tr>
+                    <td> Your Trainer Shift</td>
+                    <td>{{member.trainer.shift}}</td>
+
+                 </tr>
+                
+
+
+				 
+  </table>
+  
+		</div>
+
+		
+	  </div>
+	  <!-- CHARTS ENDS HERE -->
+
+	  
+
+
+	</div>
+  </main>
+ 
+
+
+{% endblock content %}

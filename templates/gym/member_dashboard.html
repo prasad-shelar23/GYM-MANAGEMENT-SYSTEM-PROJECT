@@ -1,0 +1,150 @@
+{% extends 'gym/memberbase.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.main__cards {
+		
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 30px;
+		margin: 10px 0;
+	}
+</style>
+<main>
+	<div class="main__container">
+	  <!-- MAIN TITLE STARTS HERE -->
+
+	  <div class="main__title">
+		<img src="{% static "assets/member.svg" %}" alt="" />
+		<div class="main__greeting">
+		  <h1>Hello Member</h1>
+		  <p>Welcome to your dashboard</p>
+		</div>
+	  </div>
+
+	  <!-- MAIN TITLE ENDS HERE -->
+
+	  <!-- MAIN CARDS STARTS HERE -->
+	  <div class="main__cards">
+		
+
+		<div class="card">
+			<i
+			  class="fa fa-user-secret fa-2x text-yellow"
+			  aria-hidden="true"
+			></i>
+			<div class="card_inner">
+			  <p class="text-primary-p">Number of Trainer</p>
+			  <span class="font-bold text-title">{{trainer_count}}</span>
+			</div>
+		  </div>
+
+		<div class="card">
+		  <i class="fa fa-cog fa-2x text-red" aria-hidden="true"></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">Number Of Equipment</p>
+			<span class="font-bold text-title">{{equipment_count}}</span>
+		  </div>
+		</div>
+
+		
+		
+		<div class="card">
+		  <i
+			class="fa fa-suitcase fa-2x text-red"
+			aria-hidden="true"
+		  ></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">Number of Package</p>
+			<span class="font-bold text-title">{{package_count}}</span>
+		  </div>
+		</div>
+	  </div>
+	  <!-- MAIN CARDS ENDS HERE -->
+          <!-- CHARTS STARTS HERE -->
+          <div class="charts">
+            <div class="charts__left">
+              <div class="charts__left__title">
+                <div>
+                  <h1>Total Reports</h1>
+                  <p>Gym Report</p>
+                </div>
+                <i class="fa fa-tachometer" aria-hidden="true"></i>
+              </div>
+              <div style="position: relative; height:300px; width:300px">
+				<canvas
+				style="margin-left: 50px;"
+				id="myChart"></canvas>
+			</div>
+            </div>
+
+            <div class="charts__right">
+              <div class="charts__right__title">
+                <div>
+                  <h1>Stats Reports</h1>
+                  <p>My Personal Report</p>
+                </div>
+                <i class="fa fa-inr" aria-hidden="true"></i>
+              </div>
+
+              <div class="charts__right__cards">
+                <div class="card1">
+                  <h1>My Fee</h1></br>
+                  <p>{{my_fee}}</p>
+                </div>
+
+                <div class="card2">
+                  <h1>Trainer Assigned</h1></br>
+                  <p>{{trainer_assigned}}</p>
+                </div>
+
+                <div class="card3">
+                  <h1>Trainer Shift</h1></br>
+                  <p>{{trainer_shift}}</p>
+                </div>
+
+               
+              </div>
+            </div>
+          </div>
+          <!-- CHARTS ENDS HERE -->
+	  
+
+
+	</div>
+  </main>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+ 
+	
+	
+
+  <script>
+
+
+  {% comment %} NOW USING CHART JS FOR PIE CHART {% endcomment %}
+	const data = {
+		labels: [
+		  
+		  'Trainer',
+		  'Equipment',
+		  'Package'
+		],
+		datasets: [{
+		  label: 'My First Dataset',
+		  data: [{{trainer_count}}, {{equipment_count}}, {{package_count}}],
+		  backgroundColor: ["Blue", "Orange", "Green"],
+		  hoverOffset: 4
+		}]
+	  };
+	const config = {
+		type: 'doughnut',
+		data: data,
+	  };
+	
+	const myChart = new Chart(document.getElementById('myChart'),config);
+
+</script>
+
+{% endblock content %}

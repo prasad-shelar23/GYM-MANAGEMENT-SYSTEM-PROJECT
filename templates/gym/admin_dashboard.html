@@ -1,0 +1,200 @@
+{% extends 'gym/adminbase.html' %}
+{% load static %}
+{% block content %}
+<main>
+	<div class="main__container">
+	  <!-- MAIN TITLE STARTS HERE -->
+
+	  <div class="main__title">
+		<img src="{% static "assets/hello.svg" %}" alt="" />
+		<div class="main__greeting">
+		  <h1>Hello Gymnast</h1>
+		  <p>Welcome to your admin dashboard</p>
+		</div>
+	  </div>
+
+	  <!-- MAIN TITLE ENDS HERE -->
+
+	  <!-- MAIN CARDS STARTS HERE -->
+	  <div class="main__cards">
+		<div class="card">
+		  <i
+			class="fa fa-user fa-2x text-lightblue"
+			aria-hidden="true"
+		  ></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">Number of Members</p>
+			<span class="font-bold text-title">{{member_count}}</span>
+		  </div>
+		</div>
+
+		<div class="card">
+			<i
+			  class="fa fa-user-secret fa-2x text-yellow"
+			  aria-hidden="true"
+			></i>
+			<div class="card_inner">
+			  <p class="text-primary-p">Number of Trainer</p>
+			  <span class="font-bold text-title">{{trainer_count}}</span>
+			</div>
+		  </div>
+
+		<div class="card">
+		  <i class="fa fa-cog fa-2x text-red" aria-hidden="true"></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">Number Of Equipment</p>
+			<span class="font-bold text-title">{{equipment_count}}</span>
+		  </div>
+		</div>
+
+		
+		
+		<div class="card">
+		  <i
+			class="fa fa-suitcase fa-2x text-green"
+			aria-hidden="true"
+		  ></i>
+		  <div class="card_inner">
+			<p class="text-primary-p">Number of Package</p>
+			<span class="font-bold text-title">{{package_count}}</span>
+		  </div>
+		</div>
+	  </div>
+	  <!-- MAIN CARDS ENDS HERE -->
+
+	  <!-- CHARTS STARTS HERE -->
+	  <div class="charts">
+		<div class="charts__left">
+		  <div class="charts__left__title">
+			<div>
+			  <h1>Attendance Reports</h1>
+			  <p>Last Seven Days Report</p>
+			</div>
+			<i class="fa fa-calendar" aria-hidden="true"></i>
+		  </div>
+		  <div style="margin-top: 25px;" id="apex1">
+		  </div>
+		</div>
+
+		<div class="charts__right">
+		  <div class="charts__right__title">
+			<div>
+			  <h1>Total Reports</h1>
+			  {% comment %} <p>Per Month</p> {% endcomment %}
+			</div>
+			<i class="fa fa-tachometer" aria-hidden="true"></i>
+		  </div>
+
+		  <div class="charts__right__cards">
+			
+			
+
+			<div>
+				<canvas
+				style="margin-left: 50px;"
+				id="myChart"></canvas>
+			</div>
+
+			
+		  </div>
+		</div>
+	  </div>
+	  <!-- CHARTS ENDS HERE -->
+
+	  
+
+
+	</div>
+  </main>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <script>
+	// We are using Apex Chart FOR BAR CHART
+var options = {
+	series: [
+	  {
+		name: "Present",
+		data: [{{monday_present}}, {{tuesday_present}},{{wednesday_present}},{{thursday_present}},{{friday_present}},{{saturday_present}},{{sunday_present}}],
+	  },
+	  {
+		name: "Absent",
+		data: [{{monday_absent}}, {{tuesday_absent}},{{wednesday_absent}},{{thursday_absent}},{{friday_absent}},{{saturday_absent}},{{sunday_absent}}],
+	  },
+	  
+	],
+	chart: {
+	  type: "bar",
+	  height: 250, // make this 250
+	  sparkline: {
+		enabled: true, // make this true
+	  },
+	},
+	plotOptions: {
+	  bar: {
+		horizontal: false,
+		columnWidth: "60%",
+		endingShape: "rounded",
+	  },
+	},
+	dataLabels: {
+	  enabled: false,
+	},
+	stroke: {
+	  show: true,
+	  width: 2,
+	  colors: ["transparent"],
+	},
+	xaxis: {
+	
+	  categories: ["Monday - {{last_monday}}", "Tuesday - {{last_tuesday}}", "Wednesday - {{last_wednesday}}", "Thursday - {{last_thursday}}", "Friday - {{last_friday}}", "Saturday - {{last_saturday}}", "Sunday - {{last_sunday}}"],
+	 
+	},
+	yaxis: {
+	  
+	},
+	fill: {
+	  opacity: 1,
+	  colors: ['#0000FF', '#FFA500']
+	},
+	tooltip: {
+	  y: {
+		formatter: function (val) {
+		  return  val + " Member";
+		},
+	  },
+	},
+	
+  };
+  
+  var chart = new ApexCharts(document.querySelector("#apex1"), options);
+  chart.render();
+
+  {% comment %} NOW USING CHART JS FOR PIE CHART {% endcomment %}
+	const data = {
+		labels: [
+		  'Member',
+		  'Trainer',
+		  'Equipment',
+		  'Package'
+		],
+		datasets: [{
+		  label: 'My First Dataset',
+		  data: [{{member_count}}, {{trainer_count}}, {{equipment_count}}, {{package_count}}],
+		  backgroundColor: ["Red", "Blue", "Orange", "Purple"],
+		  hoverOffset: 4
+		}]
+	  };
+	const config = {
+		type: 'doughnut',
+		data: data,
+	  };
+	
+	const myChart = new Chart(document.getElementById('myChart'),config);
+
+</script>
+
+	
+
+{% endblock content %}

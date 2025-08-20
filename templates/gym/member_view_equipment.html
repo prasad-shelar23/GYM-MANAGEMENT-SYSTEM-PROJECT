@@ -1,0 +1,96 @@
+{% extends 'gym/memberbase.html' %}
+{% load static %}
+{% block content %}
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+		margin-top: 20px;
+	  }
+	  
+	  td, th {
+		border: 1px solid #dddddd;
+		text-align: center;
+		padding: 8px;
+	  }
+	  
+	  tr:nth-child(even) {
+		background-color: #f0faff;
+	  }
+	.charts {
+		
+		 grid-template-columns: 1fr;
+		/* gap: 30px; */
+		margin-top: 30px;
+		justify-content: space-around;
+		/* align-items: center; */
+		/* justify-items: center; */
+		/* align-content: space-around; */
+	}
+
+</style>
+<main>
+	<div class="main__container">
+	  <!-- MAIN TITLE STARTS HERE -->
+
+	  <div class="main__title">
+		<img src="{% static "assets/dumbbell.svg" %}" alt="" />
+		<div class="main__greeting">
+		  <h1>Hello {{request.user.username}}</h1>
+		  <p> Equipment Of Gym</p>
+		</div>
+	  </div>
+
+	  <!-- MAIN TITLE ENDS HERE -->
+
+
+	  <!-- CHARTS STARTS HERE -->
+	  <div class="charts">
+		<div class="charts__left">
+		  <div class="charts__left__title">
+			<div>
+			  <h1>Equipment List</h1>
+			  
+			</div>
+			<i class="fa fa-cog" aria-hidden="true"></i>
+		  </div>
+		  
+<table>
+	<tr>
+	  <th>Name</th>
+	  
+	  <th>Picture</th>
+	  <th>Price</th>
+      <th>Unit</th>
+      <th>Description</th>
+	 
+	</tr>
+	{% for t in equipments %}
+                <tr>
+                  <td> {{t.name}}</td>
+                  <td> <img src="{% static t.pic.url %}" alt="Profile Pic" height="120px" width="120px" /></td>
+
+                  <td>{{t.price}}</td>
+				  <td>{{t.unit}}</td>
+                  <td>{{t.description}}</td>
+		
+                 </tr>
+    {% endfor %}
+	
+  </table>
+  
+		</div>
+
+		
+	  </div>
+	  <!-- CHARTS ENDS HERE -->
+
+	  
+
+
+	</div>
+  </main>
+ 
+
+{% endblock content %}
